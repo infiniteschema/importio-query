@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ site.name }}</title>
+    {{ site.head }}
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <script src="//rawgit.com/dperini/729294/raw/5044cf178a4654bf6b9fa4dfc452ae569aecec5e/regex-weburl.js"></script>
+    <script src="//fgnass.github.io/spin.js/spin.min.js"></script>
+    <script src="//fgnass.github.io/spin.js/jquery.spin.js"></script>
+
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.3/css/jquery.dataTables.min.css" />
+    <script src="//cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js"></script>
+
+    <script src="//cdn.import.io/js/2.0.0/importio.js"></script>
+
+    <link rel="stylesheet" href="css/query.css">
+    <link rel="stylesheet" href="css/my.css">
+    <script src="js/query.js"></script>
+    <script src="js/my.js"></script>
+  </head>
+  <body>
+    {{ site.header }}
+
+    <div id="search"></div>
+    <table id="results" class="display"></table>
+    
+    {{ site.footer }}
+  </body>
+</html>
