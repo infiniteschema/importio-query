@@ -123,6 +123,9 @@ var dataCallback = function(data) {
           c = '<a href="' + c + '" target="_blank">' + c + '</a>';
         }
       }
+      if (typeof filterAll === 'function') {
+        c = filterAll(c, d.data);
+      }
 
       r.push(c);
     }
@@ -149,6 +152,9 @@ var doneCallback = function(data) {
   if (doSearchDisable) {
     $(fSel + ' *').disabled(false);
   }
+}
+var filterAll = function(val, row) {
+  return "<span>" + val + "</span>";
 }
 
 // helpers
