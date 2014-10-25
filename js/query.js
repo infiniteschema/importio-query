@@ -9,6 +9,9 @@ var headerSep = ", ";//colNamesExtra header separator
 var reIn = [], reEx = [];//include/exclude cols matching patterns
 var filters = {};//functions to apply to data
 var doLinkify = true;//turn urls into links
+var doSearchDisable = true;//disable search inputs on query
+var doSearchDisableSecs = 15;//seconds to re-enable search inputs on query
+var timeCur;//newest timestamp
 var t;//table object
 var isDoneHeader = false;//whether headers have been loaded
 var spinOpts = $.fn.spin.presets['small'];//spinner options
@@ -30,7 +33,11 @@ var doReady = function() {
   }
 }
 var doQueryPre = function() {
-  $(fSel + ' *').disabled(true);
+  if (doSearchDisable) {
+    $(fSel + ' *').disabled(true);
+    timeCur = new Date().getTime();
+    setTimeout(function(){searchDisableTimeout(timeCur);}, doSearchDisableSecs * 1000);
+  }
   if (spinOpts) {
     $(fSel).spin(spinOpts);
   }
@@ -110,7 +117,7 @@ var dataCallback = function(data) {
       if (d.data.hasOwnProperty(k)) {
         c = d.data[k];
         if (typeof filters[k] === 'function') {
-          c = filters[k](c);
+          c = filters[k](c, d.data);// send val and row
         }
         if (doLinkify && re_weburl.test(c)) {
           c = '<a href="' + c + '" target="_blank">' + c + '</a>';
@@ -139,7 +146,9 @@ var doneCallback = function(data) {
   if (spinOpts) {
     $(fSel).spin(false);
   }
-  $(fSel + ' *').disabled(false);
+  if (doSearchDisable) {
+    $(fSel + ' *').disabled(false);
+  }
 }
 
 // helpers
@@ -155,4 +164,11 @@ $.fn.disabled = function(b) {
   return this.each(function() {
       if (typeof this.disabled != "undefined") this.disabled = !!b;
   });
+}
+function searchDisableTimeout(time) {
+  if (timeCur != time) {
+    return;
+  }
+
+  doneCallback("searchDisableTimeout");
 }

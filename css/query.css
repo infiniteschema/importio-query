@@ -5,3 +5,5 @@ button { line-height: 20px; color: #333; text-align: center; text-shadow: 0 1px 
 #header {}
 #footer { position: absolute; bottom: 0; width: 98%; margin-top: 1em; padding-bottom: 1em; font-style: italic; }
 #footer a { color: #ec3c87; }
+#autocomplete-spin { position: relative; padding-right: 1em; margin-right: 1em; }
+.ui-autocomplete { text-align: left; }
