@@ -13,6 +13,7 @@ var doSearchDisable = true;//disable search inputs on query
 var doSearchDisableSecs = 15;//seconds to re-enable search inputs on query
 var timeCur;//newest timestamp
 var t;//table object
+var tOpts = {};//table object options
 var isDoneHeader = false;//whether headers have been loaded
 var spinOpts = $.fn.spin.presets['small'];//spinner options
 spinOpts.left = "100%";
@@ -88,7 +89,7 @@ var dataCallback = function(data) {
     htmlHeader += '</tr>';
     $(tSel).append("<thead>" + htmlHeader + "</thead>\n<tfoot>" + htmlHeader + "</tfoot>");
     isDoneHeader = true;
-    t = $(tSel).DataTable();// initialize DataTable after thead/tfoot created
+    t = $(tSel).DataTable(tOpts);// initialize DataTable after thead/tfoot created
     t.column(colNames.length).visible( false );// hide extra column for now
   } else {// check if headers need to change
     for (var k in d.data) {
